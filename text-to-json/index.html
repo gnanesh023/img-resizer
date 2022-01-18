@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- Page title -->
+    <title>Text to JSON Converter</title>
+    <meta name="keywords" content="TXT to JSON, CSV to JSON, encoder, JSON coverter, JSON formatter"/>
+    <meta name="description" content="Converts a TXT or CSV file or text data to JSON and Javascript Array online."/>
+
+    <!-- Facebook OpenGraph  Social media attributes -->
+    <meta property="og:title" content="Text to JSON Converter"/>
+    <meta property="og:description" content="Converts a TXT or CSV file or text data to JSON and Javascript Array online."/>
+    <meta property="og:site_name" content="Text to JSON Converter"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://fraigo.github.io/text-to-json/"/>
+    <link rel="canonical" href="https://fraigo.github.io/text-to-json/" />
+
+    <!-- Facebook OpenGraph  Social media image link url and size (must be http, not https) -->
+    <meta property="og:image" content="http://fraigo.github.io/text-to-json/images/icon.png"/>
+    <meta property="og:image:width" content="256"/>
+    <meta property="og:image:height" content="256"/>
+        
+    <!-- Fav Icon / App Icon -->
+    <link rel="shortcut icon" href="images/icon.png"/>
+    <link rel="icon" type="image/png" href="images/icon.png" sizes="256x256"/>
+    <link rel="apple-touch-icon" sizes="images/icon.png" href="images/icon.png"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container" ng-app="app" ng-controller="controller">
+
+        <div class="row text-center m-3">
+            <div class="col-sm-3"><big>Text to JSON tool</big></div>
+            <div class="col-sm-6">
+                <input type="file" id="filename" style="display: none" accept=".csv,.txt" onchange="angular.element(this).scope().selectFile(this)">
+                <button type="button" ng-click="openFile()" class="btn btn-info">Load CSV/TXT file</button>
+            </div>
+            <div class="col-sm-3"><a href="https://github.com/fraigo/text-to-json/">GitHub Project</a></div>
+        </div>
+
+        <div class="row m-2">
+            <div class="col-sm-12">
+                <textarea name="content" placeholder="Paste a CSV/TXT text content" id="content" cols="30" rows="8" ng-model="textContent" ng-change="changedText()" style="white-space:nowrap" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <!--
+        <div class="row m-2">
+            <div class="col-sm-12">
+                <button type="button" onclick="refresh()" class="btn btn-primary">Convert</button>
+            </div>
+        </div>
+        -->
+        <div class="row m-2" >
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                    <a class="nav-link {{tab=='json'?'active':''}}" href="#" ng-click="tab='json'">JSON</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link {{tab=='array'?'active':''}}" href="#" ng-click="tab='array'">Array</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{tab=='code'?'active':''}}" href="#" ng-click="tab='code'">Code template</a>
+                        </li>
+                        <!--<li class="nav-item">
+                    <a class="nav-link {{tab=='tabs'?'active':''}}" href="#"  ng-click="tab='tabs'">Tab separated</a>
+                    </li>-->
+                </ul>
+            </div>
+            
+        </div>
+
+
+        <div class="row m-2" ng-show="tab=='json'">
+            <div class="col-sm-12 tab-item p-1"><textarea ng-model=jsonData class="form-control" rows="10"></textarea></div>
+        </div>
+        
+        <div class="row m-2" ng-show="tab=='array'">
+            
+            <div class="col-sm-12 tab-item p-1"><textarea ng-model=arrayData class="form-control" rows="10"></textarea></div>
+            
+        </div>
+
+        <div class="row m-2" ng-show="tab=='code'">
+            
+
+            <div class="col-sm-12 tab-item p-1">
+                <textarea ng-model=templateCode class="form-control" rows="5"></textarea>
+            </div>
+            <div class="col-sm-12 tab-item p-1">
+                <div ng-repeat="(idx,line) in jsonArray">{{replace(line,idx)}}</div>
+            </div>
+            
+        </div>
+
+        <!--
+        <div class="row m-2" ng-if="tab=='tabs'">
+            <div class="col-sm-12 tab-item">{{tabData}}</div>
+        </div>
+         -->
+
+    </div>
+
+     <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/text-to-json.js"></script>
+    <script>
+    
+    var app=angular.module("app",[]);
+
+    var controller=app.controller("controller",["$scope",function($scope){
+        
+        $scope.data=[];
+        $scope.textContent="col1;col2\n123;456\n777;888";
+        $scope.pretty=true;
+        $scope.tab="json";
+        $scope.templateCode="Line ${#} : Col 1  is ${col1} , Col 2 is ${col2}";
+
+        $scope.openFile=function(){
+            openFile();
+        }
+
+        $scope.selectFile=function(){
+            selectFile(function(data){
+                $scope.textContent=data;
+                $scope.changedText();
+                $scope.$apply();
+            });
+        }
+
+        $scope.changedText=function(){
+            $scope.data=CSVToArray($scope.textContent);
+            $scope.jsonArray=arrayToJson($scope.data);
+            $scope.arrayData="[\n";
+            $scope.data2=textToArray($scope.textContent.replace(/\"/g,"\\\""));
+            console.log($scope.data2);
+            for(var idx in $scope.data){
+                $scope.arrayData+="  [\""+$scope.data2[idx].join("\",\"")+"\"],\n";
+            }
+            $scope.arrayData+="]";
+            $scope.jsonData=angular.toJson($scope.jsonArray,$scope.pretty);
+        }
+
+        $scope.replace=function(line,num){
+            var code=$scope.templateCode;
+            while (code.indexOf("${#}")!=-1){
+                code=code.replace("${#}",num+1);
+            }
+            while (code.indexOf("${@}")!=-1){
+                code=code.replace("${@}",num);
+            }
+            for(var key in line){
+                while (code.indexOf("${"+key+"}")!=-1){
+                    code=code.replace("${"+key+"}",line[key]);
+                }
+            }
+            if ($scope.replacedCode!=code){
+                $scope.replacedCode=code;
+            }
+            return $scope.replacedCode;
+        }
+
+        $scope.changedText();
+        
+    }]);
+    </script>
+
+</body>
+</html>

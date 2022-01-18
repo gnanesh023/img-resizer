@@ -1,0 +1,50 @@
+{
+	"Animals": [{
+		"name": "Crab",
+		"thumb": "http://www.vidsplay.com/wp-content/uploads/2017/04/crab-screenshot.jpg",
+		"video": "http://cdn71.vidorg.net/hls/h7toc7cwamlbu3tf6rvtlihszgttd3l7wt5xyevyq,zjeptn75cbb2vs5b47a,rjeptn75cbhvdenh2yq,jjeptn75cbj4bo4crwq,.urlset/master.m3u8",
+		"genre": "Animals"
+	}, {
+		"name": "Alligator",
+		"thumb": "http://www.vidsplay.com/wp-content/uploads/2017/04/alligator-screenshot.jpg",
+		"video": "http://www.vidsplay.com/wp-content/uploads/2017/04/alligator.mp4",
+		"genre": "Animals"
+	}, {
+		"name": "Turtle",
+		"thumb": "http://www.vidsplay.com/wp-content/uploads/2017/04/turtle-screenshot.jpg",
+		"video": "http://www.vidsplay.com/wp-content/uploads/2017/04/turtle.mp4",
+		"genre": "Animals"
+	}],
+	"Cars": [{
+		"name": "Postal Truck",
+		"thumb": "http://www.vidsplay.com/wp-content/uploads/2017/05/us_postal-screenshot.jpg",
+		"video": "http://www.vidsplay.com/wp-content/uploads/2017/05/us_postal.mp4",
+		"genre": "Cars"
+	}, {
+		"name": "Traffic",
+		"thumb": "http://www.vidsplay.com/wp-content/uploads/2017/05/traffic1-screenshot.jpg",
+		"video": "http://www.vidsplay.com/wp-content/uploads/2017/05/traffic1.mp4",
+		"genre": "Cars"
+	}, {
+		"name": "Traffic Arrows",
+		"thumb": "http://www.vidsplay.com/wp-content/uploads/2017/05/traffic_arrows-screenshot.jpg",
+		"video": "http://www.vidsplay.com/wp-content/uploads/2017/05/traffic_arrows.mp4",
+		"genre": "Cars"
+	}],
+	"Food": [{
+		"name": "Chicken",
+		"thumb": "http://www.vidsplay.com/wp-content/uploads/2017/05/bbq_chicken-screenshot.jpg",
+		"video": "http://www.vidsplay.com/wp-content/uploads/2017/05/bbqchicken.mp4",
+		"genre": "Food"
+	}, {
+		"name": "Hamburger",
+		"thumb": "http://www.vidsplay.com/wp-content/uploads/2017/05/hamburger-screenshot.jpg",
+		"video": "http://www.vidsplay.com/wp-content/uploads/2017/05/hamburger.mp4",
+		"genre": "Food"
+	}, {
+		"name": "Pizza",
+		"thumb": "http://www.vidsplay.com/wp-content/uploads/2017/05/pizza-screenshot.jpg",
+		"video": "http://www.vidsplay.com/wp-content/uploads/2017/05/pizza.mp4",
+		"genre": "Food"
+	}]
+}
